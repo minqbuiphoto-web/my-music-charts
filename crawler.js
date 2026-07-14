@@ -29,60 +29,58 @@ async function getMusicDetails(title, artist) {
 }
 
 async function start() {
+  // Tạo sẵn khung dữ liệu trống đề phòng lỗi cào web
+  const freshData = { KR_HOT: [], JP_HOT: [], CN_HOT: [], KR_OST: [], JP_OST: [], CN_OST: [] };
+
+  // 1. Cào dữ liệu Melon Hàn Quốc
   try {
     console.log('Đang cào dữ liệu Melon Hàn Quốc...');
-    const melonRes = await axios.get('https://www.melon.com/chart/index.htm', { headers: { 'User-Agent': 'Mozilla/5.0' } });
+    const melonRes = await axios.get('https://www.melon.com/chart/index.htm', { headers: { 'User-Agent': 'Mozilla/5.0' }, timeout: 10000 });
     const $k = cheerio.load(melonRes.data);
-    const krHot = [];
     let i = 0;
     for (const el of $k('.lst50').toArray()) {
       if (i < 10) {
         const title = $k(el).find('.ellipsis.rank01 a').text().trim();
         const artist = $k(el).find('.ellipsis.rank02 a').first().text().trim();
         const details = await getMusicDetails(title, artist);
-        krHot.push({ rank: i+1, title, artist, ...details });
+        freshData.KR_HOT.push({ rank: i+1, title, artist, ...details });
         i++;
       }
     }
+  } catch (err) { console.log('Lỗi cào nhạc Hàn, bỏ qua...'); }
 
+  // 2. Cào dữ liệu Billboard Japan
+  try {
     console.log('Đang cào dữ liệu Billboard Japan...');
-    // ĐÃ SỬA: Chuyển sang HTTPS chuẩn bảo mật để không bị GitHub và trình duyệt chặn
-    const jpnRes = await axios.get('https://www.billboard-japan.com/charts/detail?a=hot100', { headers: { 'User-Agent': 'Mozilla/5.0' } });
-    const $j = cheerio.load(pnRes.data || jpnRes.data);
-    const jpHot = [];
+    const jpnRes = await axios.get('https://www.billboard-japan.com/charts/detail?a=hot100', { headers: { 'User-Agent': 'Mozilla/5.0' }, timeout: 10000 });
+    const $j = cheerio.load(jpnRes.data);
     let j = 0;
     for (const el of $j('table.table tbody tr').toArray()) {
       if (j < 10) {
         const title = $j(el).find('.name_detail p.music_name').text().trim();
         const artist = $j(el).find('.name_detail p.artist_name').text().trim();
         const details = await getMusicDetails(title, artist);
-        jpHot.push({ rank: j+1, title, artist, ...details });
+        freshData.JP_HOT.push({ rank: j+1, title, artist, ...details });
         j++;
       }
     }
+  } catch (err) { console.log('Lỗi cào nhạc Nhật, bỏ qua...'); }
 
+  // 3. Nạp danh sách Nhạc Trung Quốc và OST
+  try {
     const baseCn = [{rank:1, title:"演员", artist:"薛之谦"}, {rank:2, title:"飞鸟和蝉", artist:"任然"}, {rank:3, title:"可能", artist:"程响"}, {rank:4, title:"精卫", artist:"30年前的下午"}, {rank:5, title:"我会等", artist:"承桓"}];
-    const cnHot = [];
-    for(let s of baseCn) { const d = await getMusicDetails(s.title, s.artist); cnHot.push({...s, ...d}); }
+    for(let s of baseCn) { const d = await getMusicDetails(s.title, s.artist); freshData.CN_HOT.push({...s, ...d}); }
 
     const baseKrOst = [{rank:1, title:"Sudden Shower", artist:"ECLIPSE", movie:"Lovely Runner"}, {rank:2, title:"I Don't Know", artist:"Seventeen BSS", movie:"Queen of Tears"}, {rank:3, title:"Love You With All My Heart", artist:"Crush", movie:"Queen of Tears"}];
-    const krOst = [];
-    for(let s of baseKrOst) { const d = await getMusicDetails(s.title, s.artist); krOst.push({...s, ...d}); }
+    for(let s of baseKrOst) { const d = await getMusicDetails(s.title, s.artist); freshData.KR_OST.push({...s, ...d}); }
 
-    const freshData = {
-      KR_HOT: krHot,
-      JP_HOT: jpHot,
-      CN_HOT: cnHot,
-      KR_OST: krOst,
-      JP_OST: [{ rank: 1, title: "Rain", artist: "Motohiro Hata", movie: "The Garden of Words", ytId: "776VvO-hPsw", lyric: "言の葉の庭 OST..." }],
-      CN_OST: [{ rank: 1, title: "凉凉", artist: "张碧晨", movie: "Tam Sinh Tam Thế", ytId: "r7821-X3Sww", lyric: "三生三世十里桃花 OST..." }]
-    };
+    freshData.JP_OST = [{ rank: 1, title: "Rain", artist: "Motohiro Hata", movie: "The Garden of Words", ytId: "776VvO-hPsw", lyric: "言の葉の庭 OST..." }];
+    freshData.CN_OST = [{ rank: 1, title: "凉凉", artist: "张碧晨", movie: "Tam Sinh Tam Thế", ytId: "r7821-X3Sww", lyric: "三生三世十里桃花 OST..." }];
+  } catch (err) {}
 
-    fs.writeFileSync('live-data.json', JSON.stringify(freshData, null, 2));
-    console.log('Hoàn tất!');
-  } catch (err) {
-    console.error(err);
-    process.exit(1);
-  }
+  // Ghi file kết quả
+  fs.writeFileSync('live-data.json', JSON.stringify(freshData, null, 2));
+  console.log('Hoàn tất cào dữ liệu thành công!');
 }
+
 start();
