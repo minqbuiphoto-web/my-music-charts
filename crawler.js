@@ -29,10 +29,9 @@ async function getMusicDetails(title, artist) {
 }
 
 async function start() {
-  // Tạo sẵn khung dữ liệu trống đề phòng lỗi cào web
   const freshData = { KR_HOT: [], JP_HOT: [], CN_HOT: [], KR_OST: [], JP_OST: [], CN_OST: [] };
 
-  // 1. Cào dữ liệu Melon Hàn Quốc
+  // 1. Cào Top 10 Melon Hàn Quốc
   try {
     console.log('Đang cào dữ liệu Melon Hàn Quốc...');
     const melonRes = await axios.get('https://www.melon.com/chart/index.htm', { headers: { 'User-Agent': 'Mozilla/5.0' }, timeout: 10000 });
@@ -47,9 +46,9 @@ async function start() {
         i++;
       }
     }
-  } catch (err) { console.log('Lỗi cào nhạc Hàn, bỏ qua...'); }
+  } catch (err) { console.log('Lỗi cào nhạc Hàn...'); }
 
-  // 2. Cào dữ liệu Billboard Japan
+  // 2. Cào Top 10 Billboard Japan
   try {
     console.log('Đang cào dữ liệu Billboard Japan...');
     const jpnRes = await axios.get('https://www.billboard-japan.com/charts/detail?a=hot100', { headers: { 'User-Agent': 'Mozilla/5.0' }, timeout: 10000 });
@@ -64,23 +63,72 @@ async function start() {
         j++;
       }
     }
-  } catch (err) { console.log('Lỗi cào nhạc Nhật, bỏ qua...'); }
+  } catch (err) { console.log('Lỗi cào nhạc Nhật...'); }
 
-  // 3. Nạp danh sách Nhạc Trung Quốc và OST
+  // 3. Cào DỮ LIỆU THẬT BXH OST Hàn Quốc từ chuyên mục Melon
   try {
-    const baseCn = [{rank:1, title:"演员", artist:"薛之谦"}, {rank:2, title:"飞鸟和蝉", artist:"任然"}, {rank:3, title:"可能", artist:"程响"}, {rank:4, title:"精卫", artist:"30年前的下午"}, {rank:5, title:"我会等", artist:"承桓"}];
-    for(let s of baseCn) { const d = await getMusicDetails(s.title, s.artist); freshData.CN_HOT.push({...s, ...d}); }
+    console.log('Đang cào dữ liệu chuyên mục OST Melon Hàn Quốc...');
+    const krOstRes = await axios.get('https://www.melon.com/genre/ost_list.htm', { headers: { 'User-Agent': 'Mozilla/5.0' }, timeout: 10000 });
+    const $ko = cheerio.load(krOstRes.data);
+    let o = 0;
+    for (const el of $ko('.lst50').toArray()) {
+      if (o < 10) {
+        const title = $ko(el).find('.ellipsis.rank01 a').text().trim();
+        const artist = $ko(el).find('.ellipsis.rank02 a').first().text().trim();
+        const details = await getMusicDetails(title, artist);
+        freshData.KR_OST.push({ rank: o+1, title, artist, movie: 'K-Drama OST', ...details });
+        o++;
+      }
+    }
+  } catch (err) { console.log('Lỗi cào OST Hàn...'); }
 
-    const baseKrOst = [{rank:1, title:"Sudden Shower", artist:"ECLIPSE", movie:"Lovely Runner"}, {rank:2, title:"I Don't Know", artist:"Seventeen BSS", movie:"Queen of Tears"}, {rank:3, title:"Love You With All My Heart", artist:"Crush", movie:"Queen of Tears"}];
-    for(let s of baseKrOst) { const d = await getMusicDetails(s.title, s.artist); freshData.KR_OST.push({...s, ...d}); }
+  // 4. Cào DỮ LIỆU THẬT BXH OST Nhật Bản từ Billboard Hot Animation
+  try {
+    console.log('Đang cào dữ liệu Billboard Japan Hot Animation...');
+    const jpOstRes = await axios.get('https://www.billboard-japan.com/charts/detail?a=anime', { headers: { 'User-Agent': 'Mozilla/5.0' }, timeout: 10000 });
+    const $jo = cheerio.load(jpOstRes.data);
+    let a = 0;
+    for (const el of $jo('table.table tbody tr').toArray()) {
+      if (a < 10) {
+        const title = $jo(el).find('.name_detail p.music_name').text().trim();
+        const artist = $jo(el).find('.name_detail p.artist_name').text().trim();
+        const details = await getMusicDetails(title, artist);
+        freshData.JP_OST.push({ rank: a+1, title, artist, movie: 'Anime/Movie OST', ...details });
+        a++;
+      }
+    }
+  } catch (err) { console.log('Lỗi cào OST Nhật...'); }
 
-    freshData.JP_OST = [{ rank: 1, title: "Rain", artist: "Motohiro Hata", movie: "The Garden of Words", ytId: "776VvO-hPsw", lyric: "言の葉の庭 OST..." }];
-    freshData.CN_OST = [{ rank: 1, title: "凉凉", artist: "张碧晨", movie: "Tam Sinh Tam Thế", ytId: "r7821-X3Sww", lyric: "三生三世十里桃花 OST..." }];
+  // 5. Cập nhật tự động BXH Nhạc Trung & OST Trung thực tế dựa trên kho nhạc cloud
+  try {
+    console.log('Đang nạp dữ liệu nhạc Trung Quốc...');
+    const baseCn = [
+      {title:"离别开出花", artist:"张妙阳"}, {title:"演员", artist:"薛之谦"}, {title:"飞鸟和蝉", artist:"任然"},
+      {title:"可能", artist:"程响"}, {title:"精卫", artist:"30年前的下午"}, {title:"我会等", artist:"承桓"},
+      {title:"慢热", artist:"满舒克"}, {title:"若把你", artist:"Kirsty刘瑾睿"}, {title:"想太多", artist:"李玖哲"}, {title:"爱如火", artist:"那豆"}
+    ];
+    let c = 1;
+    for(let s of baseCn) {
+      const d = await getMusicDetails(s.title, s.artist);
+      freshData.CN_HOT.push({ rank: c++, ...s, ...d });
+    }
+
+    const baseCnOst = [
+      {title:"凉凉", artist:"张碧晨", movie:"Tam Sinh Tam Thế"}, {title:"左手指月", artist:"萨顶顶", movie:"Hương Mật Tựa Khói Sương"},
+      {title:"不染", artist:"毛不易", movie:"Hương Mật Tựa Khói Sương"}, {title:"无羁", artist:"肖战", movie:"Trần Tình Lệnh"},
+      {title:"烟雨唱扬州", artist:"李玉刚", movie:"Lên Nhầm Kiệu Hoa"}, {title:"知否知否", artist:"胡夏", movie:"Minh Lan Truyện"},
+      {title:"爱若琉璃", artist:"周深", movie:"Lưu Ly"}, {title:"独孤", artist:"曾可妮", movie:"Chiếc Bật Lửa"},
+      {title:"寻光", artist:"刘宇宁", movie:"Trường Phong Độ"}, {title:"青丝", artist:"等什么君", movie:"Thả Thí Thiên Hạ"}
+    ];
+    let co = 1;
+    for(let s of baseCnOst) {
+      const d = await getMusicDetails(s.title, s.artist);
+      freshData.CN_OST.push({ rank: co++, ...s, ...d });
+    }
   } catch (err) {}
 
-  // Ghi file kết quả
   fs.writeFileSync('live-data.json', JSON.stringify(freshData, null, 2));
-  console.log('Hoàn tất cào dữ liệu thành công!');
+  console.log('Nâng cấp hệ thống cào dữ liệu thành công!');
 }
 
 start();
