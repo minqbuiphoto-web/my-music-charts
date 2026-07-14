@@ -8,24 +8,22 @@ async function getMusicDetails(title, artist) {
   let ytId = '';
 
   try {
-    // 1. Tìm ID bài hát và Lyric từ NetEase
-    const searchRes = await axios.get(`https://music.163.com/api/search/get/web?s=${encodeURIComponent(title + ' ' + artist)}&type=1&limit=1`);
+    const searchRes = await axios.get(`https://music.163.com/api/search/get/web?s=${encodeURIComponent(title + ' ' + artist)}&type=1&limit=1`, { timeout: 5000 });
     if (searchRes.data.result && searchRes.data.result.songs) {
       songId = searchRes.data.result.songs[0].id;
-      const lyrRes = await axios.get(`https://music.163.com/api/song/lyric?os=pc&id=${songId}&lv=-1`);
+      const lyrRes = await axios.get(`https://music.163.com/api/song/lyric?os=pc&id=${songId}&lv=-1`, { timeout: 5000 });
       if (lyrRes.data.lrc && lyrRes.data.lrc.lyric) {
         lyric = lyrRes.data.lrc.lyric.replace(/\[.*?\]/g, '').trim();
       }
     }
-    
-    // 2. Tìm ID Video YouTube tự động thông qua công cụ không cần API key
+  } catch (e) {}
+  
+  try {
     const ytSearchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(title + ' ' + artist + ' official mv')}`;
-    const ytRes = await axios.get(ytSearchUrl, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' } });
+    const ytRes = await axios.get(ytSearchUrl, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }, timeout: 5000 });
     const match = ytRes.data.match(/"videoId":"([^"]+)"/);
-    if (match && match[1]) {
-      ytId = match[1];
-    }
-  } catch (e) { /* Bỏ qua lỗi mạng đơn lẻ */ }
+    if (match && match[1]) { ytId = match[1]; }
+  } catch (e) {}
   
   return { songId, lyric, ytId };
 }
@@ -48,8 +46,9 @@ async function start() {
     }
 
     console.log('Đang cào dữ liệu Billboard Japan...');
-    const jpnRes = await axios.get('http://www.billboard-japan.com/charts/detail?a=hot100', { headers: { 'User-Agent': 'Mozilla/5.0' } });
-    const $j = cheerio.load(jpnRes.data);
+    // ĐÃ SỬA: Chuyển sang HTTPS chuẩn bảo mật để không bị GitHub và trình duyệt chặn
+    const jpnRes = await axios.get('https://www.billboard-japan.com/charts/detail?a=hot100', { headers: { 'User-Agent': 'Mozilla/5.0' } });
+    const $j = cheerio.load(pnRes.data || jpnRes.data);
     const jpHot = [];
     let j = 0;
     for (const el of $j('table.table tbody tr').toArray()) {
@@ -62,7 +61,6 @@ async function start() {
       }
     }
 
-    // Thiết lập danh sách cứng cho OST và Nhạc Trung, tự động map link chuẩn
     const baseCn = [{rank:1, title:"演员", artist:"薛之谦"}, {rank:2, title:"飞鸟和蝉", artist:"任然"}, {rank:3, title:"可能", artist:"程响"}, {rank:4, title:"精卫", artist:"30年前的下午"}, {rank:5, title:"我会等", artist:"承桓"}];
     const cnHot = [];
     for(let s of baseCn) { const d = await getMusicDetails(s.title, s.artist); cnHot.push({...s, ...d}); }
@@ -81,7 +79,7 @@ async function start() {
     };
 
     fs.writeFileSync('live-data.json', JSON.stringify(freshData, null, 2));
-    console.log('Cập nhật dữ liệu live-data.json hoàn tất!');
+    console.log('Hoàn tất!');
   } catch (err) {
     console.error(err);
     process.exit(1);
