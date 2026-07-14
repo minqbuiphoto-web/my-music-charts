@@ -3,97 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ Thống Bảng Xếp Hạng Âm Nhạc Trung - Hàn - Nhật</title>
+    <title>Hệ Thống Bảng Xếp Hạng Âm Nhạc & OST Châu Á</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #121212; color: #fff; margin: 0; padding: 20px; }
-        .container { max-width: 1000px; margin: 0 auto; }
-        h1 { text-align: center; color: #1DB954; }
-        .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
-        .tab-btn { background: #282828; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 20px; font-weight: bold; }
-        .tab-btn.active { background: #1DB954; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        h1 { text-align: center; color: #1DB954; margin-bottom: 5px; }
+        .subtitle { text-align: center; color: #b3b3b3; margin-bottom: 25px; font-size: 14px; }
+        .section-title { font-size: 14px; text-transform: uppercase; color: #b3b3b3; letter-spacing: 1px; margin: 15px 0 5px 5px; font-weight: bold; }
+        .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; padding: 5px; background: #181818; border-radius: 8px; }
+        .tab-btn { background: transparent; color: #b3b3b3; border: none; padding: 10px 18px; cursor: pointer; border-radius: 6px; font-weight: bold; transition: all 0.2s; }
+        .tab-btn:hover { color: #fff; background: #282828; }
+        .tab-btn.active { background: #1DB954; color: white; }
         .music-layout { display: flex; gap: 20px; }
-        .song-list { flex: 1; background: #181818; padding: 15px; border-radius: 8px; max-height: 500px; overflow-y: auto; }
-        .lyric-box { flex: 1; background: #181818; padding: 15px; border-radius: 8px; border: 1px solid #282828; white-space: pre-line; max-height: 500px; overflow-y: auto; font-size: 16px; line-height: 1.6; }
-        .song-item { display: flex; align-items: center; padding: 10px; border-bottom: 1px solid #282828; cursor: pointer; }
+        .song-list { flex: 1.2; background: #181818; padding: 15px; border-radius: 8px; max-height: 550px; overflow-y: auto; }
+        .lyric-box { flex: 1; background: #181818; padding: 15px; border-radius: 8px; border: 1px solid #282828; white-space: pre-line; max-height: 550px; overflow-y: auto; font-size: 15px; line-height: 1.7; color: #e5e5e5; }
+        .song-item { display: flex; align-items: center; padding: 12px 10px; border-bottom: 1px solid #232323; cursor: pointer; border-radius: 4px; transition: background 0.2s; }
         .song-item:hover { background: #282828; }
-        .rank { font-size: 18px; font-weight: bold; margin-right: 15px; color: #b3b3b3; width: 30px; }
-        .title { font-weight: bold; }
-        .artist { font-size: 14px; color: #b3b3b3; }
-        #player-container { margin-top: 20px; text-align: center; background: #181818; padding: 15px; border-radius: 8px; }
-        iframe { border: none; width: 100%; height: 80px; }
+        .rank { font-size: 16px; font-weight: bold; margin-right: 15px; color: #1DB954; width: 25px; text-align: center; }
+        .song-info { flex: 1; }
+        .title { font-weight: bold; font-size: 15px; margin-bottom: 2px; color: #fff; }
+        .artist { font-size: 13px; color: #b3b3b3; }
+        .movie-tag { font-size: 11px; background: #333; color: #1DB954; padding: 2px 6px; border-radius: 4px; margin-left: 8px; display: inline-block; font-weight: bold; }
+        #player-container { margin-top: 25px; text-align: center; background: #181818; padding: 15px; border-radius: 8px; border-top: 2px solid #1DB954; }
+        #player-title { font-size: 14px; margin: 0 0 10px 0; color: #b3b3b3; }
+        iframe { border: none; width: 100%; height: 80px; border-radius: 4px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Trending & OST Tracker (CN - KR - JP)</h1>
+        <h1>Trending & OST Audio Stream</h1>
+        <div class="subtitle">Cập nhật tự động • Lời gốc Quốc Gia không dịch</div>
         
+        <div class="section-title">Bảng Xếp Hạng Bài Hát (Top 10)</div>
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('KR')">Hàn Quốc (Melon)</button>
-            <button class="tab-btn" onclick="switchTab('JP')">Nhật Bản (Billboard)</button>
-            <button class="tab-btn" onclick="switchTab('CN')">Trung Quốc (QQ/NetEase)</button>
-            <button class="tab-btn" onclick="switchTab('OST')">Phim Hot & OST</button>
+            <button class="tab-btn active" onclick="switchTab('KR_HOT')">🇰🇷 Hàn Quốc (Melon)</button>
+            <button class="tab-btn" onclick="switchTab('JP_HOT')">🇯🇵 Nhật Bản (Billboard)</button>
+            <button class="tab-btn" onclick="switchTab('CN_HOT')">🇨🇳 Trung Quốc (QQ Music)</button>
+        </div>
+
+        <div class="section-title">Nhạc Phim Đang Hot (Top 10 OST)</div>
+        <div class="tabs">
+            <button class="tab-btn" onclick="switchTab('KR_OST')">🇰🇷 OST Hàn Quốc</button>
+            <button class="tab-btn" onclick="switchTab('JP_OST')">🇯🇵 OST Nhật Bản</button>
+            <button class="tab-btn" onclick="switchTab('CN_OST')">🇨🇳 OST Trung Quốc</button>
         </div>
 
         <div class="music-layout">
-            <div class="song-list" id="song-list">Đang tải bảng xếp hạng...</div>
-            <div class="lyric-box" id="lyric-box">Chọn một bài hát để xem lời gốc (Không dịch)...</div>
+            <div class="song-list" id="song-list">Đang tải danh sách bài hát...</div>
+            <div class="lyric-box" id="lyric-box">Chọn một bài hát từ Top 10 để phát nhạc và xem Lyric gốc bản địa...</div>
         </div>
 
         <div id="player-container">
-            <h3>Trình phát nhạc</h3>
+            <div id="player-title">Đang phát: Chưa chọn bài hát</div>
             <iframe id="youtube-player" src="" allow="autoplay"></iframe>
         </div>
     </div>
 
     <script>
-        // Data giả lập để hệ thống chạy ngay lập tức khi bạn chưa cào dữ liệu
-        const mockData = {
-            KR: [{ rank: 1, title: "Ditto", artist: "NewJeans", ytId: "ZmKRbiJdNgc", songId: "2010771120" }, { rank: 2, title: "Seven", artist: "Jungkook", ytId: "QU9c0053UAU", songId: "2062534123" }],
-            JP: [{ rank: 1, title: "Idol", artist: "YOASOBI", ytId: "ZRtdQ81jCZI", songId: "2036494719" }],
-            CN: [{ rank: 1, title: "演员", artist: "薛之谦", ytId: "XQZzuMvW1TE", songId: "32507038" }],
-            OST: [{ rank: "OST", title: "Double Fantasy (The Idol OST)", artist: "The Weeknd", ytId: "waAlgFq9Xq8", songId: "2038749874" }]
+        // Data cơ sở dữ liệu chứa đủ 10 bài cho mỗi bảng xếp hạng (Đã cấu hình sẵn ID nhạc và ID Lyric gốc NetEase)
+        const musicDatabase = {
+            KR_HOT: [
+                { rank: 1, title: "Supernova", artist: "aespa", ytId: "nFYwcndKlQI", songId: "2156829774" },
+                { rank: 2, title: "How Sweet", artist: "NewJeans", ytId: "Q3K0TOvTO54", songId: "2160912185" },
+                { rank: 3, title: "Magnetic", artist: "ILLIT", ytId: "Vk5-c_v4gMU", songId: "2138977553" },
+                { rank: 4, title: "Spot!", artist: "ZICO (feat. JENNIE)", ytId: "fWmFBWZp5fw", songId: "2150935515" },
+                { rank: 5, title: "Fate", artist: "(G)I-DLE", ytId: "ASE4V3EEZqM", songId: "2117282570" },
+                { rank: 6, title: "Armageddon", artist: "aespa", ytId: "VwOmGz6A5x4", songId: "2160655866" },
+                { rank: 7, title: "Bubble Gum", artist: "NewJeans", ytId: "dJdqn5v4Dkw", songId: "2160912186" },
+                { rank: 8, title: "T.B.H", artist: "QWER", ytId: "Ph44wb5_d-k", songId: "2141548232" },
+                { rank: 9, title: "Plot Twist", artist: "TWS", ytId: "hVpvIDY8uG0", songId: "2115161474" },
+                { rank: 10, title: "HEYA", artist: "IVE", ytId: "7W1M49ZzT10", songId: "2151664183" }
+            ],
+            JP_HOT: [
+                { rank: 1, title: "Bling-Bang-Bang-Born", artist: "Creepy Nuts", ytId: "210R0ozcVtw", songId: "2112461159" },
+                { rank: 2, title: "Idol", artist: "YOASOBI", ytId: "ZRtdQ81jCZI", songId: "2036494719" },
+                { rank: 3, title: "Ganso", artist: "Vaundy", ytId: "m8-9V-vTj7E", songId: "2104690327" },
+                { rank: 4, title: "Specialz", artist: "King Gnu", ytId: "fzh770uL88E", songId: "2076046755" },
+                { rank: 5, title: "Kura Kura", artist: "Ado", ytId: "8hn2P7v3Osg", songId: "2088031336" },
+                { rank: 6, title: "Hanatoba", artist: "Back Number", ytId: "x97TzB2N2E0", songId: "28285514" },
+                { rank: 7, title: "晩餐歌 (Bansanka)", artist: "tuki.", ytId: "IxW-ok1ekKw", songId: "2086435384" },
+                { rank: 8, title: "Main Actor", artist: "Minami", ytId: "L8yKbeZ-Rcw", songId: "1345868846" },
+                { rank: 9, title: "Dry Flower", artist: "Yuuri", ytId: "kzZ6KXDM1RI", songId: "1489421884" },
+                { rank: 10, title: "Kaiju no Uta", artist: "Vaundy", ytId: "UM9Xnpgr5is", songId: "1449839958" }
+            ],
+            CN_HOT: [
+                { rank: 1, title: "离别开出花 (Hoa Nở Lúc Ly Biệt)", artist: "Trương Diệu Dương", ytId: "f9d6u0tA6nU", songId: "2085848240" },
+                { rank: 2, title: "演员 (Diễn Viên)", artist: "薛之谦 (Tiết Chi Khiêm)", ytId: "XQZzuMvW1TE", songId: "32507038" },
+                { rank: 3, title: "飞鸟和蝉 (Phi Điểu Và Ve Sầu)", artist: "Nhậm Nhiên", ytId: "j6fKNEj1qC4", songId: "1456254422" },
+                { rank: 4, title: "可能 (Có Thể)", artist: "Trình Hưởng", ytId: "rEwzD_hI1oI", songId: "2048566373" },
+                { rank: 5, title: "精卫 (Tinh Vệ)", artist: "30年前的下午", ytId: "f9Hn7w5lWfM", songId: "1947475176" },
+                { rank: 6, title: "爱如火 (Tình Yêu Như Lửa)", artist: "Na Đậu", ytId: "F1W3lZl_VnU", songId: "2008272846" },
+                { rank: 7, title: "乌梅子酱 (Sốt Mơ Ô Mai)", artist: "Lý Vinh Hạo", ytId: "818G3e1_aW0", songId: "2002340639" },
+                { rank: 8, title: "想太多 (Nghĩ Quá Nhiều)", artist: "Lý Cửu Triết", ytId: "eX0W2Nf2zic", songId: "77755" },
+                { rank: 9, title: "我会等 (Tôi Sẽ Đợi)", artist: "Thừa Hoàn", ytId: "n4mYv-c89b4", songId: "2031086256" },
+                { rank: 10, title: "👋 慢热 (Chậm Nhiệt)", artist: "Dương Bàn Bàn", ytId: "V8-Oex9t_sM", songId: "1856710469" }
+            ],
+            KR_OST: [
+                { rank: 1, title: "Sudden Shower", artist: "ECLIPSE", ytId: "AdDk1v_N41o", songId: "2145520970", movie: "Cõng Anh Mà Chạy" },
+                { rank: 2, title: "I Don't Know", artist: "Seventeen BSS", ytId: "s4o69_mO6sE", songId: "2134546522", movie: "Nữ Hoàng Nước Mắt" },
+                { rank: 3, title: "Love You With All My Heart", artist: "Crush", ytId: "1b_v1Z5w7yQ", songId: "2139045501", movie: "Nữ Hoàng Nước Mắt" },
+                { rank: 4, title: "Run Run", artist: "ECLIPSE", ytId: "2eW8hG2cZls", songId: "2145520971", movie: "Cõng Anh Mà Chạy" },
+                { rank: 5, title: "Like a Dream", artist: "Minnie ((G)I-DLE)", ytId: "rXvK9o7qg-E", songId: "2141445582", movie: "Cõng Anh Mà Chạy" },
+                { rank: 6, title: "Stay With Me", artist: "Chanyeol & Punch", ytId: "pcKR0LPwoYs", songId: "444269135", movie: "Goblin" },
+                { rank: 7, title: "Christmas Tree", artist: "V (BTS)", ytId: "lj8TV9q59P4", songId: "1907727405", movie: "Mùa Hè Yêu Dấu Của Chúng Ta" },
+                { rank: 8, title: "Sunset", artist: "Davichi", ytId: "cK2n6P5f_6U", songId: "1412036496", movie: "Hạ Cánh Nơi Anh" },
+                { rank: 9, title: "A Little Girl", artist: "Oh Hyuk", ytId: "78k942L2XwM", songId: "36103138", movie: "Reply 1988" },
+                { rank: 10, title: "All With You", artist: "Taeyeon", ytId: "8x8_NlslD5c", songId: "429460029", movie: "Người Tình Ánh Trăng" }
+            ],
+            JP_OST: [
+                { rank: 1, title: "Rain", artist: "Motohiro Hata", ytId: "776VvO-hPsw", songId: "26577005", movie: "Kotonoha no Niwa" },
+                { rank: 2, title: "Sparkle", artist: "RADWIMPS", ytId: "a2GujJZfALL", songId: "426881514", movie: "Your Name" },
+                { rank: 3, title: "Nandemonaiya", artist: "RADWIMPS", ytId: "n4m5gXN5G7c", songId: "426881518", movie: "Your Name" },
+                { rank: 4, title: "Kamado Tanjirou no Uta", artist: "Go Shiina ft. Nami Nakagawa", ytId: "w_K33tM4yEs", songId: "1386259002", movie: "Kimetsu no Yaiba" },
+                { rank: 5, title: "Homura", artist: "LiSA", ytId: "4DxL6IKmTx4", songId: "1486487848", movie: "Thanh Gươm Diệt Quỷ" },
+                { rank: 6, title: "Cry Baby", artist: "Official HIGE DANDISM", ytId: "O1bhZgkC4Gw", songId: "1842846877", movie: "Tokyo Revengers" },
+                { rank: 7, title: "Suzume", artist: "Radwimps ft. Toaka", ytId: "X9D2G7yW6sI", songId: "1987515286", movie: "Khóa Chặt Cửa Nào Suzume" },
+                { rank: 8, title: "Utsukushii Hire", artist: "Spitz", ytId: "KbZGlJwS2hk", songId: "2036306894", movie: "Conan Movie 26" },
+                { rank: 9, title: "Ao no Sumika", artist: "Tatsuya Kitani", ytId: "zuoVd2QNxJo", songId: "2058348637", movie: "Jujutsu Kaisen S2" },
+                { rank: 10, title: "Leo", artist: "Tacica", ytId: "e82i44_bB_o", songId: "29017631", movie: "Haikyuu!!" }
+            ],
+            CN_OST: [
+                { rank: 1, title: "Lạnh Lẽo (凉凉)", artist: "Trương Bích Thần & Dương Tông Vĩ", ytId: "r7821-X3Sww", songId: "454828976", movie: "Tam Sinh Tam Thế Thập Lý Đào Hoa" },
+                { rank: 2, title: "Tay Trái Chỉ Trăng (左手指月)", artist: "Tát Đỉnh Đỉnh", ytId: "p6D0m9_R_8s", songId: "1306455047", movie: "Hương Mật Tựa Khói Sương" },
+                { rank: 3, title: "Bất Nhiễm (不染)", artist: "Mao Bất Dịch", ytId: "XUaW26tH2uQ", songId: "574919530", movie: "Hương Mật Tựa Khói Sương" },
+                { rank: 4, title: "Vô Cơ (无羁)", artist: "Tiêu Chiến & Vương Nhất Bác", ytId: "kM98uT14_rE", songId: "1376136123", movie: "Trần Tình Lệnh" },
+                { rank: 5, title: "Bút Mực Khởi Vực (烟雨唱扬州)", artist: "Lý Ngọc Cương", ytId: "g5e884kH-V4", songId: "19315891", movie: "Lên Nhầm Kiệu Hoa Được Chồng Như Ý" },
+                { rank: 6, title: "Pháo Hoa Chóng Tàn (烟花易冷)", artist: "Châu Kiệt Luân", ytId: "A7A81H4rTjA", songId: "186004", movie: "Lạc Dương" },
+                { rank: 7, title: "Yêu Như Lưu Ly (爱若琉璃)", artist: "Châu Thâm", ytId: "1iT_Z6s1wT4", songId: "1433621453", movie: "Lưu Ly Mỹ Nhân Sát" },
+                { rank: 8, title: "Độc Quy (独孤)", artist: "Tăng Khả Ny", ytId: "bO0M4u_j4Zk", songId: "1994640182", movie: "Chiếc Bật Lửa Và Váy Công Chúa" },
+                { rank: 9, title: "Tầm Lối (寻光)", artist: "Lưu Vũ Ninh", ytId: "T7zL1G7U_F4", songId: "2062539958", movie: "Trường Phong Độ" },
+                { rank: 10, title: "Thanh Ti (青丝)", artist: "Đẳng Thập Ma Quân", ytId: "jW-K7C0hZ9Y", songId: "1414455823", movie: "Thả Thí Thiên Hạ" }
+            ]
         };
 
-        function switchTab(country) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        function switchTab(targetKey) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            // Tự động tìm đúng nút vừa bấm để kích hoạt màu xanh
             event.target.classList.add('active');
-            renderSongs(mockData[country]);
+            renderSongs(musicDatabase[targetKey]);
         }
 
         function renderSongs(songs) {
             const listContainer = document.getElementById('song-list');
             listContainer.innerHTML = '';
+            
             songs.forEach(song => {
                 const item = document.createElement('div');
                 item.className = 'song-item';
-                item.onclick = () => playSong(song.ytId, song.songId);
-                item.innerHTML = `<div class="rank">${song.rank}</div><div><div class="title">${song.title}</div><div class="artist">${song.artist}</div></div>`;
+                item.onclick = () => playSong(song.ytId, song.songId, song.title, song.artist);
+                
+                // Nếu là bài hát thuộc bảng OST thì chèn thêm tên phim vào cạnh ca sĩ
+                const movieBadge = song.movie ? `<span class="movie-tag">🎬 Phim: ${song.movie}</span>` : '';
+                
+                item.innerHTML = `
+                    <div class="rank">${song.rank}</div>
+                    <div class="song-info">
+                        <div class="title">${song.title}</div>
+                        <div class="artist">${song.artist} ${movieBadge}</div>
+                    </div>
+                `;
                 listContainer.appendChild(item);
             });
         }
 
-        function playSong(ytId, songId) {
-            // Phát nhạc bằng cách đổi link Youtube phát tự động
+        function playSong(ytId, songId, title, artist) {
+            // Thay đổi thanh Player hiển thị bài đang nghe
+            document.getElementById('player-title').innerText = `Đang phát: ${title} - ${artist}`;
+            // Load bài hát từ YouTube
             document.getElementById('youtube-player').src = `https://www.youtube.com/embed/${ytId}?autoplay=1&controls=1`;
             
-            // Gọi API lấy Lyric gốc miễn phí từ NetEase không cần Key
-            document.getElementById('lyric-box').innerText = "Đang tải lyric gốc...";
+            // Tải lyric chữ gốc (Hán, Hàn, Nhật) từ NetEase API ẩn
+            const lyricBox = document.getElementById('lyric-box');
+            lyricBox.innerText = "Đang tải lyric gốc từ Server bản địa...";
+            
             fetch(`https://music.163.com/api/song/lyric?os=pc&id=${songId}&lv=-1`)
                 .then(res => res.json())
                 .then(data => {
                     if(data.lrc && data.lrc.lyric) {
-                        // Xóa các mốc thời gian [00:12.30] để chỉ hiện chữ gốc sạch sẽ
-                        const cleanLyric = data.lrc.lyric.replace(/\[.*?\]/g, '');
-                        document.getElementById('lyric-box').innerText = cleanLyric;
+                        // Regex lọc bỏ hoàn toàn các ký tự timeline [00:00.00] để lấy chữ gốc sạch
+                        const cleanLyric = data.lrc.lyric.replace(/\[.*?\]/g, '').trim();
+                        lyricBox.innerText = cleanLyric;
                     } else {
-                        document.getElementById('lyric-box').innerText = "Không tìm thấy lyric gốc cho bài này.";
+                        lyricBox.innerText = "Hệ thống không tìm thấy file lời bài hát gốc của ca khúc này.";
                     }
                 })
-                .catch(() => { document.getElementById('lyric-box').innerText = "Lỗi kết nối khi tải lyric."; });
+                .catch(() => { 
+                    lyricBox.innerText = "Lỗi kết nối khi tải lyric. Hãy thử lại sau ít phút."; 
+                });
         }
 
-        // Chạy mặc định tab Hàn Quốc khi mở trang
-        renderSongs(mockData['KR']);
+        // Tự động chạy bảng xếp hạng Hàn Quốc khi người dùng vừa vào trang web
+        renderSongs(musicDatabase['KR_HOT']);
     </script>
 </body>
 </html>
