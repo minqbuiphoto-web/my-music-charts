@@ -36,6 +36,7 @@
         <div class="section-title">Bảng Xếp Hạng Bài Hát (Top 10)</div>
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('KR_HOT')">🇰🇷 Hàn Quốc (Melon)</button>
+            <button class="tab-btn" onclick="switchTab('KR_BALLAD')">🎙️ Hàn Quốc (Ballad)</button>
             <button class="tab-btn" onclick="switchTab('JP_HOT')">🇯🇵 Nhật Bản (Billboard)</button>
             <button class="tab-btn" onclick="switchTab('CN_HOT')">🇨🇳 Trung Quốc (QQ Music)</button>
         </div>
@@ -62,7 +63,6 @@
         let musicDatabase = {};
 
         function initSystem() {
-            // Dùng đường dẫn động linh hoạt tự nhận diện kho lưu trữ
             fetch('live-data.json?t=' + new Date().getTime())
                 .then(res => res.json())
                 .then(data => {
@@ -80,11 +80,12 @@
             if(musicDatabase[targetKey]) { renderSongs(musicDatabase[targetKey]); }
         }
 
+        /* Khắc phục lỗi hiển thị khi chuyển tab trống bằng cách bảo vệ dữ liệu */
         function renderSongs(songs) {
             const listContainer = document.getElementById('song-list');
             listContainer.innerHTML = '';
             if(!songs || songs.length === 0) {
-                listContainer.innerText = "Bảng xếp hạng đang được đồng bộ...";
+                listContainer.innerText = "Bảng xếp hạng này hiện đang được robot cào dữ liệu, vui lòng đợi trong giây lát...";
                 return;
             }
             songs.forEach(song => {
@@ -102,7 +103,7 @@
             if(ytId) {
                 document.getElementById('player-youtube').src = `https://www.youtube.com/embed/${ytId}?autoplay=1`;
             } else {
-                const searchKeyword = encodeURIComponent(title + " " + artist + " official mv");
+                const searchKeyword = encodeURIComponent(title + " " + artist + " official audio");
                 document.getElementById('player-youtube').src = `https://www.youtube.com/embed?listType=search&list=${searchKeyword}&autoplay=1`;
             }
             document.getElementById('lyric-box').innerText = lyric || "Bài hát hiện chưa có file lời gốc.";
