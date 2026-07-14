@@ -1,9 +1,9 @@
-name: Auto Update Charts & OST (Miễn Phí)
+name: Auto Update Charts
 
 on:
   schedule:
-    - cron: '0 17 * * *' # Tự động chạy vào lúc 0h00 đêm mỗi ngày (Giờ Việt Nam)
-  workflow_dispatch: # Cho phép bạn bấm nút chạy bằng tay bất cứ lúc nào
+    - cron: '0 17 * * *'
+  workflow_dispatch:
 
 jobs:
   update-music:
@@ -17,125 +17,18 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install dependencies
+      - name: Install Libraries
         run: |
           npm init -y
           npm install axios cheerio
 
       - name: Run Fetching Script
-        run: |
-          node -e "
-          const axios = require('axios');
-          const cheerio = require('cheerio');
-          const fs = require('fs');
-
-          async function start() {
-            try {
-              // 1. Cào dữ liệu Melon Hàn Quốc thực tế
-              const melonRes = await axios.get('https://www.melon.com/chart/index.htm', { headers: { 'User-Agent': 'Mozilla/5.0' } });
-              const $k = cheerio.load(melonRes.data);
-              const krHot = [];
-              $k('.lst50').each((i, el) => {
-                if(i < 10) {
-                  const title = $k(el).find('.ellipsis.rank01 a').text().trim();
-                  const artist = $k(el).find('.ellipsis.rank02 a').first().text().trim();
-                  krHot.push({ rank: i+1, title, artist, ytId: '', songId: '' });
-                }
-              });
-
-              // 2. Cào dữ liệu Billboard Japan Hot 100 thực tế
-              const jpnRes = await axios.get('http://www.billboard-japan.com/charts/detail?a=hot100', { headers: { 'User-Agent': 'Mozilla/5.0' } });
-              const $j = cheerio.load(jpnRes.data);
-              const jpHot = [];
-              $j('table.table tbody tr').each((i, el) => {
-                if(i < 10) {
-                  const title = $j(el).find('.name_detail p.music_name').text().trim();
-                  const artist = $j(el).find('.name_detail p.artist_name').text().trim();
-                  jpHot.push({ rank: i+1, title, artist, ytId: '', songId: '' });
-                }
-              });
-
-              // Tạo một cơ sở dữ liệu tạm thời
-              const freshData = {
-                KR_HOT: krHot,
-                JP_HOT: jpHot,
-                CN_HOT: [
-                  { rank: 1, title: '离别开出花', artist: '张妙阳', ytId: 'f9d6u0tA6nU', songId: '2085848240' },
-                  { rank: 2, title: '演员', artist: '薛之谦', ytId: 'XQZzuMvW1TE', songId: '32507038' },
-                  { rank: 3, title: '飞鸟和蝉', artist: '任然', ytId: 'j6fKNEj1qC4', songId: '1456254422' },
-                  { rank: 4, title: '可能', artist: '程响', ytId: 'rEwzD_hI1oI', songId: '2048566373' },
-                  { rank: 5, title: '精卫', artist: '30年前的下午', ytId: 'f9Hn7w5lWfM', songId: '1947475176' },
-                  { rank: 6, title: '爱如火', artist: '那豆', ytId: 'F1W3lZl_VnU', songId: '2008272846' },
-                  { rank: 7, title: '乌梅子酱', artist: '李荣浩', ytId: '818G3e1_aW0', songId: '2002340639' },
-                  { rank: 8, title: '想太多', artist: '李玖哲', ytId: 'eX0W2Nf2zic', songId: '77755' },
-                  { rank: 9, title: '我会等', artist: '承桓', ytId: 'n4mYv-c89b4', songId: '2031086256' },
-                  { rank: 10, title: '慢热', artist: '满舒克', ytId: 'V8-Oex9t_sM', songId: '1856710469' }
-                ],
-                KR_OST: [
-                  { rank: 1, title: 'Sudden Shower', artist: 'ECLIPSE', ytId: 'AdDk1v_N41o', songId: '2145520970', movie: 'Lovely Runner' },
-                  { rank: 2, title: 'I Don\'t Know', artist: 'Seventeen BSS', ytId: 's4o69_mO6sE', songId: '2134546522', movie: 'Queen of Tears' },
-                  { rank: 3, title: 'Love You With All My Heart', artist: 'Crush', ytId: '1b_v1Z5w7yQ', songId: '2139045501', movie: 'Queen of Tears' },
-                  { rank: 4, title: 'Run Run', artist: 'ECLIPSE', ytId: '2eW8hG2cZls', songId: '2145520971', movie: 'Lovely Runner' },
-                  { rank: 5, title: 'Like a Dream', artist: 'Minnie', ytId: 'rXvK9o7qg-E', songId: '2141445582', movie: 'Lovely Runner' },
-                  { rank: 6, title: 'Stay With Me', artist: 'Chanyeol & Punch', ytId: 'pcKR0LPwoYs', songId: '444269135', movie: 'Goblin' },
-                  { rank: 7, title: 'Christmas Tree', artist: 'V (BTS)', ytId: 'lj8TV9q59P4', songId: '1907727405', movie: 'Our Beloved Summer' },
-                  { rank: 8, title: 'Sunset', artist: 'Davichi', ytId: 'cK2n6P5f_6U', songId: '1412036496', movie: 'Crash Landing on You' },
-                  { rank: 9, title: 'A Little Girl', artist: 'Oh Hyuk', ytId: '78k942L2XwM', songId: '36103138', movie: 'Reply 1988' },
-                  { rank: 10, title: 'All With You', artist: 'Taeyeon', ytId: '8x8_NlslD5c', songId: '429460029', movie: 'Moon Lovers' }
-                ],
-                JP_OST: [
-                  { rank: 1, title: 'Rain', artist: 'Motohiro Hata', ytId: '776VvO-hPsw', songId: '26577005', movie: 'The Garden of Words' },
-                  { rank: 2, title: 'Sparkle', artist: 'RADWIMPS', ytId: 'a2GujJZfALL', songId: '426881514', movie: 'Your Name' },
-                  { rank: 3, title: 'Nandemonaiya', artist: 'RADWIMPS', ytId: 'n4m5gXN5G7c', songId: '426881518', movie: 'Your Name' },
-                  { rank: 4, title: 'Kamado Tanjirou no Uta', artist: 'Go Shiina', ytId: 'w_K33tM4yEs', songId: '1386259002', movie: 'Demon Slayer' },
-                  { rank: 5, title: 'Homura', artist: 'LiSA', ytId: '4DxL6IKmTx4', songId: '1486487848', movie: 'Demon Slayer' },
-                  { rank: 6, title: 'Cry Baby', artist: 'Official HIGE DANDISM', ytId: 'O1bhZgkC4Gw', songId: '1842846877', movie: 'Tokyo Revengers' },
-                  { rank: 7, title: 'Suzume', artist: 'Radwimps', ytId: 'X9D2G7yW6sI', songId: '1987515286', movie: 'Suzume' },
-                  { rank: 8, title: 'Utsukushii Hire', artist: 'Spitz', ytId: 'KbZGlJwS2hk', songId: '2036306894', movie: 'Conan Movie 26' },
-                  { rank: 9, title: 'Ao no Sumika', artist: 'Tatsuya Kitani', ytId: 'zuoVd2QNxJo', songId: '2058348637', movie: 'Jujutsu Kaisen S2' },
-                  { rank: 10, title: 'Leo', artist: 'Tacica', ytId: 'e82i44_bB_o', songId: '29017631', movie: 'Haikyuu!!' }
-                ],
-                CN_OST: [
-                  { rank: 1, title: '凉凉', artist: '张碧晨 & 杨宗纬', ytId: 'r7821-X3Sww', songId: '454828976', movie: 'Tam Sinh Tam Thế' },
-                  { rank: 2, title: '左手指月', artist: '萨顶顶', ytId: 'p6D0m9_R_8s', songId: '1306455047', movie: 'Hương Mật Tựa Khói Sương' },
-                  { rank: 3, title: '不染', artist: '毛不易', ytId: 'XUaW26tH2uQ', songId: '574919530', movie: 'Hương Mật Tựa Khói Sương' },
-                  { rank: 4, title: '无羁', artist: '肖战 & 王一博', ytId: 'kM98uT14_rE', songId: '1376136123', movie: 'Trần Tình Lệnh' },
-                  { rank: 5, title: '烟雨唱扬州', artist: '李玉刚', ytId: 'g5e884kH-V4', songId: '19315891', movie: 'Lên Nhầm Kiệu Hoa' },
-                  { rank: 6, title: '烟花易冷', artist: '周杰伦', ytId: 'A7A81H4rTjA', songId: '186004', movie: 'Lạc Dương' },
-                  { rank: 7, title: '爱若琉璃', artist: '周深', ytId: '1iT_Z6s1wT4', songId: '1433621453', movie: 'Lưu Ly' },
-                  { rank: 8, title: '独孤', artist: '曾可妮', ytId: 'bO0M4u_j4Zk', songId: '1994640182', movie: 'Chiếc Bật Lửa' },
-                  { rank: 9, title: '寻光', artist: '刘宇宁', ytId: 'T7zL1G7U_F4', songId: '2062539958', movie: 'Trường Phong Độ' },
-                  { rank: 10, title: '青丝', artist: '等什么君', ytId: 'jW-K7C0hZ9Y', songId: '1414455823', movie: 'Thả Thí Thiên Hạ' }
-                ]
-              };
-
-              // Tự động map ID bài hát từ NetEase cho Chart Hàn/Nhật để chạy được nhạc + lyric
-              for (let song of freshData.KR_HOT) {
-                const searchRes = await axios.get(`https://music.163.com/api/search/get/web?s=${encodeURIComponent(song.title + ' ' + song.artist)}&type=1&limit=1`);
-                if(searchRes.data.result && searchRes.data.result.songs) {
-                  song.songId = searchRes.data.result.songs[0].id;
-                }
-              }
-              for (let song of freshData.JP_HOT) {
-                const searchRes = await axios.get(`https://music.163.com/api/search/get/web?s=${encodeURIComponent(song.title + ' ' + song.artist)}&type=1&limit=1`);
-                if(searchRes.data.result && searchRes.data.result.songs) {
-                  song.songId = searchRes.data.result.songs[0].id;
-                }
-              }
-
-              fs.writeFileSync('live-data.json', JSON.stringify(freshData, null, 2));
-              console.log('Đã cập nhật bảng xếp hạng mới nhất thành công!');
-            } catch (err) {
-              console.error(err);
-            }
-          }
-          start();
-          "
+        run: node crawler.js
 
       - name: Commit and Push changes
         run: |
           git config --global user.name "ChartBot"
           git config --global user.email "bot@github.com"
           git add live-data.json
-          git commit -m "Cập nhật BXH tự động mới nhất [Skip CI]" || exit 0
+          git commit -m "Cập nhật dữ liệu [Skip CI]" || exit 0
           git push
