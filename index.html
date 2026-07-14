@@ -24,24 +24,15 @@
         .title { font-weight: bold; font-size: 15px; margin-bottom: 2px; color: #fff; }
         .artist { font-size: 13px; color: #b3b3b3; }
         .movie-tag { font-size: 11px; background: #333; color: #1DB954; padding: 2px 6px; border-radius: 4px; margin-left: 8px; display: inline-block; font-weight: bold; }
-        
-        /* Cải tiến khu vực Player đa nền tảng */
         #player-container { margin-top: 25px; background: #181818; padding: 20px; border-radius: 8px; border-top: 2px solid #1DB954; text-align: center; }
         #player-title { font-size: 15px; font-weight: bold; margin-bottom: 15px; color: #fff; }
-        .platform-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; }
-        .platform-btn { border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; color: #fff; font-size: 13px; }
-        .btn-youtube { background: #ff0000; }
-        .btn-spotify { background: #1db954; }
-        .btn-soundcloud { background: #ff5500; }
-        .platform-btn.inactive { opacity: 0.4; }
-        .player-frame { border: none; width: 100%; height: 160px; border-radius: 8px; background: #000; display: none; }
-        .player-frame.active { display: block; }
+        iframe { border: none; width: 100%; height: 350px; border-radius: 8px; background: #000; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Trending & OST Audio Stream</h1>
-        <div class="subtitle">Cập nhật tự động • Đa nền tảng • Lời gốc Quốc Gia không dịch</div>
+        <div class="subtitle">Cập nhật tự động • Lời gốc Quốc Gia không dịch</div>
         
         <div class="section-title">Bảng Xếp Hạng Bài Hát (Top 10)</div>
         <div class="tabs">
@@ -59,35 +50,28 @@
 
         <div class="music-layout">
             <div class="song-list" id="song-list">Đang tải danh sách bài hát...</div>
-            <div class="lyric-box" id="lyric-box">Chọn một bài hát từ Top 10 để phát nhạc và xem Lyric gốc bản địa...</div>
+            <div class="lyric-box" id="lyric-box">Chọn một bài hát từ Top 10 để phát nhạc trên YouTube và xem Lyric gốc bản địa...</div>
         </div>
 
         <div id="player-container">
             <div id="player-title">Đang phát: Chưa chọn bài hát</div>
-            <div class="platform-tabs">
-                <button id="btn-yt" class="platform-btn btn-youtube inactive" onclick="changePlatform('youtube')">📺 YouTube Video</button>
-                <button id="btn-sp" class="platform-btn btn-spotify inactive" onclick="changePlatform('spotify')">🎵 Spotify Audio</button>
-                <button id="btn-sc" class="platform-btn btn-soundcloud inactive" onclick="changePlatform('soundcloud')">☁️ SoundCloud</button>
-            </div>
-            <iframe id="player-youtube" class="player-frame" src="" allow="autoplay"></iframe>
-            <iframe id="player-spotify" class="player-frame" src="" allow="encrypted-media"></iframe>
-            <iframe id="player-soundcloud" class="player-frame" src=""></iframe>
+            <iframe id="player-youtube" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
     </div>
 
     <script>
         let musicDatabase = {};
-        let currentSong = { title: '', artist: '' };
 
         function initSystem() {
-            fetch('./live-data.json')
+            // Đọc trực tiếp file JSON sạch do robot tạo ra, không sợ bị chặn CORS nữa
+            fetch('./live-data.json?v=' + Date.now())
                 .then(res => res.json())
                 .then(data => {
                     musicDatabase = data;
                     renderSongs(musicDatabase['KR_HOT']);
                 })
                 .catch(() => {
-                    document.getElementById('song-list').innerText = "Hệ thống đang đồng bộ dữ liệu lần đầu...";
+                    document.getElementById('song-list').innerText = "Hệ thống đang đồng bộ dữ liệu, vui lòng bấm nút Run Workflow bên mục Actions của GitHub.";
                 });
         }
 
@@ -103,79 +87,22 @@
             songs.forEach(song => {
                 const item = document.createElement('div');
                 item.className = 'song-item';
-                item.onclick = () => selectSong(song.title, song.artist, song.songId);
+                item.onclick = () => playSong(song.title, song.artist, song.lyric);
                 const movieBadge = song.movie ? `<span class="movie-tag">🎬 Phim: ${song.movie}</span>` : '';
                 item.innerHTML = `<div class="rank">${song.rank}</div><div class="song-info"><div class="title">${song.title}</div><div class="artist">${song.artist} ${movieBadge}</div></div>`;
                 listContainer.appendChild(item);
             });
         }
 
-        // Hàm xử lý khi click chọn bài hát
-        function selectSong(title, artist, songId) {
-            currentSong = { title, artist };
-            document.getElementById('player-title').innerText = `Đang phát: ${title} - ${artist}`;
+        function playSong(title, artist, lyric) {
+            document.getElementById('player-title').innerText = `Đang phát Video gốc: ${title} - ${artist}`;
             
-            // 1. Cấu hình tự tìm kiếm và phát link gốc từ YouTube (Mở rộng chiều cao khung thành video)
+            // Tìm kiếm tự động video gốc chuẩn xác và hiện khung hình to rõ nét
             const searchKeyword = encodeURIComponent(title + " " + artist + " official mv");
-            const ytPlayer = document.getElementById('player-youtube');
-            ytPlayer.src = `https://www.youtube.com/embed?listType=search&list=${searchKeyword}&autoplay=1`;
-            
-            // 2. Tự động liên kết tìm kiếm nhúng của Spotify công khai
-            const spotifyPlayer = document.getElementById('player-spotify');
-            spotifyPlayer.src = `https://open.spotify.com/embed/search/${encodeURIComponent(title + " " + artist)}`;
+            document.getElementById('player-youtube').src = `https://www.youtube.com/embed?listType=search&list=${searchKeyword}&autoplay=1`;
 
-            // 3. Tự động liên kết tìm kiếm nhúng của SoundCloud
-            const soundcloudPlayer = document.getElementById('player-soundcloud');
-            soundcloudPlayer.src = `https://w.soundcloud.com/player/?url=https://soundcloud.com/search/sounds?q=${encodeURIComponent(title + " " + artist)}&auto_play=true&visual=false&show_artwork=false`;
-
-            // Mặc định ưu tiên phát ngay trình phát YouTube video theo ý bạn
-            changePlatform('youtube');
-
-            // Tải lyric chữ gốc từ NetEase
-            loadLyric(title, artist, songId);
-        }
-
-        // Hàm chuyển đổi qua lại giữa các nền tảng nghe nhạc công khai
-        function changePlatform(platform) {
-            document.querySelectorAll('.player-frame').forEach(f => f.classList.remove('active'));
-            document.querySelectorAll('.platform-btn').forEach(b => b.classList.add('inactive'));
-
-            if(platform === 'youtube') {
-                document.getElementById('player-youtube').classList.add('active');
-                document.getElementById('btn-yt').classList.remove('inactive');
-            } else if(platform === 'spotify') {
-                document.getElementById('player-spotify').classList.add('active');
-                document.getElementById('btn-sp').classList.remove('inactive');
-            } else if(platform === 'soundcloud') {
-                document.getElementById('player-soundcloud').classList.add('active');
-                document.getElementById('btn-sc').classList.remove('inactive');
-            }
-        }
-
-        function loadLyric(title, artist, songId) {
-            const lyricBox = document.getElementById('lyric-box');
-            lyricBox.innerText = "Đang tải lyric gốc quốc gia...";
-            
-            const targetId = songId || '';
-            if(!targetId) {
-                fetch(`https://music.163.com/api/search/get/web?s=${encodeURIComponent(title + ' ' + artist)}&type=1&limit=1`)
-                    .then(r => r.json())
-                    .then(d => {
-                        if(d.result && d.result.songs) { fetchLyricApi(d.result.songs[0].id); }
-                        else { lyricBox.innerText = "Không tìm thấy lyric gốc."; }
-                    });
-            } else { fetchLyricApi(targetId); }
-        }
-
-        function fetchLyricApi(id) {
-            const lyricBox = document.getElementById('lyric-box');
-            fetch(`https://music.163.com/api/song/lyric?os=pc&id=${id}&lv=-1`)
-                .then(res => res.json())
-                .then(data => {
-                    if(data.lrc && data.lrc.lyric) {
-                        lyricBox.innerText = data.lrc.lyric.replace(/\[.*?\]/g, '').trim();
-                    } else { lyricBox.innerText = "Chưa có file lyric gốc."; }
-                }).catch(() => { lyricBox.innerText = "Lỗi kết nối tải lyric."; });
+            // Hiển thị lyric đã được robot cào sẵn
+            document.getElementById('lyric-box').innerText = lyric || "Bài hát chưa cập nhật lyric gốc.";
         }
 
         initSystem();
