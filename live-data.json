@@ -10,19 +10,19 @@
     },
     {
       "rank": 2,
-      "title": "갑자기",
-      "artist": "아이오아이 (I.O.I)",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "Jxgbfc89hNI"
-    },
-    {
-      "rank": 3,
       "title": "REDRED",
       "artist": "CORTIS (코르티스)",
       "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "U6BDbXIah-Y"
+    },
+    {
+      "rank": 3,
+      "title": "갑자기",
+      "artist": "아이오아이 (I.O.I)",
+      "songId": "",
+      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
+      "ytId": "Jxgbfc89hNI"
     },
     {
       "rank": 4,
@@ -34,19 +34,19 @@
     },
     {
       "rank": 5,
+      "title": "Pretty Girl",
+      "artist": "RESCENE (리센느)",
+      "songId": "",
+      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
+      "ytId": "qZlu2j2SiBA"
+    },
+    {
+      "rank": 6,
       "title": "It′s Me",
       "artist": "아일릿(ILLIT)",
       "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "bMhDJ0S0OBA"
-    },
-    {
-      "rank": 6,
-      "title": "Pretty Girl",
-      "artist": "RESCENE (리센느)",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "mQ4-qhvDoiU"
     },
     {
       "rank": 7,
@@ -58,19 +58,19 @@
     },
     {
       "rank": 8,
-      "title": "캐치 캐치",
-      "artist": "YENA (최예나)",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "NOiyDlWl534"
-    },
-    {
-      "rank": 9,
       "title": "Drowning",
       "artist": "WOODZ",
       "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "tiKFuzpX-NA"
+    },
+    {
+      "rank": 9,
+      "title": "캐치 캐치",
+      "artist": "YENA (최예나)",
+      "songId": "",
+      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
+      "ytId": "NOiyDlWl534"
     },
     {
       "rank": 10,
@@ -85,6 +85,14 @@
   "CN_HOT": [
     {
       "rank": 1,
+      "title": "离别开出花",
+      "artist": "张妙阳",
+      "songId": "",
+      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
+      "ytId": "6DXF1B2TPXE"
+    },
+    {
+      "rank": 2,
       "title": "演员",
       "artist": "薛之谦",
       "songId": "",
@@ -92,7 +100,7 @@
       "ytId": "XaN3kUz4KSw"
     },
     {
-      "rank": 2,
+      "rank": 3,
       "title": "飞鸟和蝉",
       "artist": "任然",
       "songId": "",
@@ -100,15 +108,15 @@
       "ytId": "Sdh16YlinNE"
     },
     {
-      "rank": 3,
+      "rank": 4,
       "title": "可能",
       "artist": "程响",
       "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "BNB9mkO0sOw"
+      "ytId": "XO-dMXmRfsQ"
     },
     {
-      "rank": 4,
+      "rank": 5,
       "title": "精卫",
       "artist": "30年前的下午",
       "songId": "",
@@ -116,61 +124,138 @@
       "ytId": "A204b5Q4p_U"
     },
     {
-      "rank": 5,
+      "rank": 6,
       "title": "我会等",
       "artist": "承桓",
       "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "-eGMo7S6yMI"
-    }
-  ],
-  "KR_OST": [
-    {
-      "rank": 1,
-      "title": "Sudden Shower",
-      "artist": "ECLIPSE",
-      "movie": "Lovely Runner",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "fBB4MaBybyg"
     },
     {
-      "rank": 2,
-      "title": "I Don't Know",
-      "artist": "Seventeen BSS",
-      "movie": "Queen of Tears",
+      "rank": 7,
+      "title": "慢热",
+      "artist": "满舒克",
       "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "g_cTD_HDjO0"
+      "ytId": "0ScE_HH1Ke0"
     },
     {
-      "rank": 3,
-      "title": "Love You With All My Heart",
-      "artist": "Crush",
-      "movie": "Queen of Tears",
+      "rank": 8,
+      "title": "若把你",
+      "artist": "Kirsty刘瑾睿",
       "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "Z4qVfCi_lUI"
-    }
-  ],
-  "JP_OST": [
+      "ytId": "WLKAowa8D-I"
+    },
     {
-      "rank": 1,
-      "title": "Rain",
-      "artist": "Motohiro Hata",
-      "movie": "The Garden of Words",
-      "ytId": "776VvO-hPsw",
-      "lyric": "言の葉の庭 OST..."
+      "rank": 9,
+      "title": "想太多",
+      "artist": "李玖哲",
+      "songId": "",
+      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
+      "ytId": "fVtmLnmkrp4"
+    },
+    {
+      "rank": 10,
+      "title": "爱如火",
+      "artist": "那豆",
+      "songId": "",
+      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
+      "ytId": "wSvsF2HDmOM"
     }
   ],
+  "KR_OST": [],
+  "JP_OST": [],
   "CN_OST": [
     {
       "rank": 1,
       "title": "凉凉",
       "artist": "张碧晨",
       "movie": "Tam Sinh Tam Thế",
-      "ytId": "r7821-X3Sww",
-      "lyric": "三生三世十里桃花 OST..."
+      "songId": "",
+      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
+      "ytId": "0m5KW_yax4o"
+    },
+    {
+      "rank": 2,
+      "title": "左手指月",
+      "artist": "萨顶顶",
+      "movie": "Hương Mật Tựa Khói Sương",
+      "songId": "",
+      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
+      "ytId": "Vg8nH1-zo7U"
+    },
+    {
+      "rank": 3,
+      "title": "不染",
+      "artist": "毛不易",
+      "movie": "Hương Mật Tựa Khói Sương",
+      "songId": "",
+      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
+      "ytId": "dDV36GmFP20"
+    },
+    {
+      "rank": 4,
+      "title": "无羁",
+      "artist": "肖战",
+      "movie": "Trần Tình Lệnh",
+      "songId": "",
+      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
+      "ytId": "oAKSQTDDv0A"
+    },
+    {
+      "rank": 5,
+      "title": "烟雨唱扬州",
+      "artist": "李玉刚",
+      "movie": "Lên Nhầm Kiệu Hoa",
+      "songId": "",
+      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
+      "ytId": "Lw-uv_9_Cx4"
+    },
+    {
+      "rank": 6,
+      "title": "知否知否",
+      "artist": "胡夏",
+      "movie": "Minh Lan Truyện",
+      "songId": "",
+      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
+      "ytId": "xoH29SM3e8I"
+    },
+    {
+      "rank": 7,
+      "title": "爱若琉璃",
+      "artist": "周深",
+      "movie": "Lưu Ly",
+      "songId": "",
+      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
+      "ytId": "bae132iO0AY"
+    },
+    {
+      "rank": 8,
+      "title": "独孤",
+      "artist": "曾可妮",
+      "movie": "Chiếc Bật Lửa",
+      "songId": "",
+      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
+      "ytId": "kgfoKSp-m1Y"
+    },
+    {
+      "rank": 9,
+      "title": "寻光",
+      "artist": "刘宇宁",
+      "movie": "Trường Phong Độ",
+      "songId": "",
+      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
+      "ytId": "x8yuSugraHE"
+    },
+    {
+      "rank": 10,
+      "title": "青丝",
+      "artist": "等什么君",
+      "movie": "Thả Thí Thiên Hạ",
+      "songId": "",
+      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
+      "ytId": "Ti5BrAsiuzY"
     }
   ]
 }
