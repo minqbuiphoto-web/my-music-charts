@@ -18,7 +18,7 @@ async function start() {
 
     console.log('Đang cào dữ liệu Billboard Japan...');
     const jpnRes = await axios.get('http://www.billboard-japan.com/charts/detail?a=hot100', { headers: { 'User-Agent': 'Mozilla/5.0' } });
-    const $j = cheerio.load(pnRes.data || jpnRes.data);
+    const $j = cheerio.load(jpnRes.data);
     const jpHot = [];
     $j('table.table tbody tr').each((i, el) => {
       if(i < 10) {
@@ -28,7 +28,6 @@ async function start() {
       }
     });
 
-    // Tạo sẵn danh sách cứng cho các mục OST và Nhạc Trung để chống lỗi
     const freshData = {
       KR_HOT: krHot,
       JP_HOT: jpHot,
@@ -83,9 +82,9 @@ async function start() {
     };
 
     fs.writeFileSync('live-data.json', JSON.stringify(freshData, null, 2));
-    console.log('Ghi file live-data.json thành công!');
+    console.log('Thành công!');
   } catch (err) {
-    console.error('Lỗi hệ thống cào dữ liệu:', err);
+    console.error(err);
     process.exit(1);
   }
 }
