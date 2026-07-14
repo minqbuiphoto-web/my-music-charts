@@ -4,47 +4,41 @@
       "rank": 1,
       "title": "LOVE ATTACK",
       "artist": "RESCENE (리센느)",
-      "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "_IZiw5uqFz8"
     },
     {
       "rank": 2,
+      "title": "갑자기",
+      "artist": "아이오아이 (I.O.I)",
+      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
+      "ytId": "Jxgbfc89hNI"
+    },
+    {
+      "rank": 3,
       "title": "REDRED",
       "artist": "CORTIS (코르티스)",
-      "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "tSSI7ntBKIs"
     },
     {
-      "rank": 3,
-      "title": "갑자기",
-      "artist": "아이오아이 (I.O.I)",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "Ulyes7pJRLk"
-    },
-    {
       "rank": 4,
-      "title": "LEMONADE",
-      "artist": "aespa",
-      "songId": "",
+      "title": "Pretty Girl",
+      "artist": "RESCENE (리센느)",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "RKHfhecEIbU"
+      "ytId": "mQ4-qhvDoiU"
     },
     {
       "rank": 5,
-      "title": "Pretty Girl",
-      "artist": "RESCENE (리센느)",
-      "songId": "",
+      "title": "LEMONADE",
+      "artist": "aespa",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "mQ4-qhvDoiU"
+      "ytId": "RKHfhecEIbU"
     },
     {
       "rank": 6,
       "title": "It′s Me",
       "artist": "아일릿(ILLIT)",
-      "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "bMhDJ0S0OBA"
     },
@@ -52,7 +46,6 @@
       "rank": 7,
       "title": "소문의 낙원",
       "artist": "AKMU (악뮤)",
-      "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "MePc3CCGX-s"
     },
@@ -60,15 +53,13 @@
       "rank": 8,
       "title": "Drowning",
       "artist": "WOODZ",
-      "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "r3PQP0dUlC4"
+      "ytId": "NbKH4iZqq1Y"
     },
     {
       "rank": 9,
       "title": "캐치 캐치",
       "artist": "YENA (최예나)",
-      "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "NOiyDlWl534"
     },
@@ -76,7 +67,6 @@
       "rank": 10,
       "title": "RUDE!",
       "artist": "Hearts2Hearts (하츠투하츠)",
-      "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "Q4AE3ub4nBM"
     }
@@ -84,403 +74,73 @@
   "KR_BALLAD": [
     {
       "rank": 1,
-      "title": "물들어 버린 나의 마음",
-      "artist": "최도영(CANDO)",
-      "songId": "",
+      "title": "내 안에 머물러요",
+      "artist": "방예담",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "Xn45t8iX8X8"
+      "ytId": "M9HdbOcbJng"
     },
     {
       "rank": 2,
-      "title": "그건 아니잖아",
-      "artist": "더 라임",
-      "songId": "",
+      "title": "사랑한다면",
+      "artist": "황영웅",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "OVBqv6ge_Ls"
+      "ytId": "gtG0pbIGWnA"
     },
     {
       "rank": 3,
       "title": "우리가 사랑한 계절",
       "artist": "이아영",
-      "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "PPFbE-2Q6pg"
     },
     {
       "rank": 4,
-      "title": "시간이 지나도 세월이 지나도",
-      "artist": "란 (RAN)",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "ju2HAVcYfdk"
-    },
-    {
-      "rank": 5,
-      "title": "비가 내린 그 자리에",
-      "artist": "라밋(Ramit)",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "MHrb4LbvRFo"
-    },
-    {
-      "rank": 6,
-      "title": "해질녘 약속",
-      "artist": "정동원",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "HuB5OSaPfNA"
-    },
-    {
-      "rank": 7,
-      "title": "마지막 인사",
-      "artist": "디케이소울",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "AdeiY2BvreY"
-    },
-    {
-      "rank": 8,
-      "title": "우산 없는 밤",
-      "artist": "이예준",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "-4OY5zbXAU0"
-    },
-    {
-      "rank": 9,
-      "title": "열대야",
-      "artist": "뮤지쿡(MusiCook)",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "I1oyqi_DucM"
-    },
-    {
-      "rank": 10,
-      "title": "사랑은 남아",
-      "artist": "혜진 (HEZIIN)",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "oZ8WjBb03GY"
-    },
-    {
-      "rank": 11,
-      "title": "고백",
-      "artist": "리",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "Wlps3G2RYIU"
-    },
-    {
-      "rank": 12,
-      "title": "99 Degrees",
-      "artist": "재현 (JAEHYUN)",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "wuF8Q_iq7Bo"
-    },
-    {
-      "rank": 13,
-      "title": "내 안에 머물러요",
-      "artist": "방예담",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "M9HdbOcbJng"
-    },
-    {
-      "rank": 14,
-      "title": "그때 조금만 더 참았더라면",
-      "artist": "이보람",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "EZaXaRCmGx4"
-    },
-    {
-      "rank": 15,
-      "title": "느린 노래",
-      "artist": "재경",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "LG3dsd3yPXY"
-    },
-    {
-      "rank": 16,
-      "title": "기다리지 말아요",
-      "artist": "에코비",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "scMD-5b6iz0"
-    },
-    {
-      "rank": 17,
       "title": "어쩌니",
       "artist": "체리베리 (CherryBerry)",
-      "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "-fBya1rygHA"
     },
     {
-      "rank": 18,
-      "title": "다 끝난 거라 해도",
-      "artist": "상수역 1번 출구",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "d9rJvUdyyyk"
-    },
-    {
-      "rank": 19,
-      "title": "사랑한다면",
-      "artist": "황영웅",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "gtG0pbIGWnA"
-    },
-    {
-      "rank": 20,
-      "title": "사라진 모든 것들에게",
-      "artist": "길구 (길구봉구)",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "NZjRMVZ_dRE"
-    },
-    {
-      "rank": 21,
-      "title": "이 여름이 다 가기 전에",
-      "artist": "현지",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "M6yztsg7twM"
-    },
-    {
-      "rank": 22,
+      "rank": 5,
       "title": "아프지만 안녕",
       "artist": "차수경",
-      "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "48Sr6TdZ_j8"
     },
     {
-      "rank": 23,
-      "title": "밤하늘 보면서 너를 떠올려",
-      "artist": "파니니 브런치 (PANINI BRUNCH)",
-      "songId": "",
+      "rank": 6,
+      "title": "우산 없는 밤",
+      "artist": "이예준",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "8OBXvPy-Zos"
+      "ytId": "-4OY5zbXAU0"
     },
     {
-      "rank": 24,
-      "title": "슬픈 혼잣말",
-      "artist": "박지현",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "YSthpfQHuws"
-    },
-    {
-      "rank": 25,
-      "title": "웃어주지 마요",
-      "artist": "임재현",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "L4aOBuPkpLg"
-    },
-    {
-      "rank": 26,
-      "title": "친구",
-      "artist": "황가람",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "l8i-PDCqw20"
-    },
-    {
-      "rank": 27,
-      "title": "막사랑",
-      "artist": "최유리",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "r3MVdGLkJFw"
-    },
-    {
-      "rank": 28,
-      "title": "Anytime",
-      "artist": "큐 (THE BOYZ)",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "0lGTAroEN4s"
-    },
-    {
-      "rank": 29,
+      "rank": 7,
       "title": "연애 (From. 연애전쟁)",
       "artist": "Paul Blanco",
-      "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "N82rTBkiNSw"
     },
     {
-      "rank": 30,
-      "title": "아직도 나는",
-      "artist": "에코비",
-      "songId": "",
+      "rank": 8,
+      "title": "마지막 인사",
+      "artist": "디케이소울",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "uhXwMkX7dtI"
+      "ytId": "AdeiY2BvreY"
     },
     {
-      "rank": 31,
-      "title": "너와 매일",
-      "artist": "서현준",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "yc3rW2hBLkQ"
-    },
-    {
-      "rank": 32,
-      "title": "여름 냄새",
-      "artist": "헌책방",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "zzI-6aHL8Sc"
-    },
-    {
-      "rank": 33,
-      "title": "잘가, 하루야",
-      "artist": "천",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "fXDIadl_IsU"
-    },
-    {
-      "rank": 34,
-      "title": "저 문을 열고 돌아올 것 만 같아",
-      "artist": "소밍",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "vQd0xbcxf8k"
-    },
-    {
-      "rank": 35,
-      "title": "그대의 소원이 이별이라기에",
-      "artist": "황인욱",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "SxwOKZmm9TY"
-    },
-    {
-      "rank": 36,
-      "title": "뒤로 가지 않는 지하철",
-      "artist": "한이서",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "pErKK2j91vk"
-    },
-    {
-      "rank": 37,
-      "title": "더 아름다워져",
-      "artist": "소수빈",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "uEaq3PA6Meo"
-    },
-    {
-      "rank": 38,
-      "title": "321Q (Prod. 오묘)",
-      "artist": "대박임 (주대건, 박장현, 임도혁)",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "0rB1KB5FMwQ"
-    },
-    {
-      "rank": 39,
-      "title": "아픈 기다림",
-      "artist": "NUGU INGA",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "I6aRZg9XCCw"
-    },
-    {
-      "rank": 40,
-      "title": "별빛지기 (Feat. 문빛)",
-      "artist": "Ruminn",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "ilg5PHYTC0g"
-    },
-    {
-      "rank": 41,
-      "title": "Love Quest",
-      "artist": "휴이 (Huie)",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "m0AV4dCRosg"
-    },
-    {
-      "rank": 42,
-      "title": "너와의 이별은 처음이라",
-      "artist": "율",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "iMYCE4E6br8"
-    },
-    {
-      "rank": 43,
-      "title": "너의 얼굴 다 잊을게",
-      "artist": "이소라",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "PO4tfKVQiLc"
-    },
-    {
-      "rank": 44,
-      "title": "사랑아, 나는 널",
-      "artist": "SUBEEN(수빈)",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "_9pwY4m7-4A"
-    },
-    {
-      "rank": 45,
-      "title": "한여름에 한 이별",
-      "artist": "김동하",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "WCijTnFXEJA"
-    },
-    {
-      "rank": 46,
-      "title": "배경과 집",
-      "artist": "이제",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "Szv0AlS6cDs"
-    },
-    {
-      "rank": 47,
-      "title": "방 안에서",
+      "rank": 9,
+      "title": "밤하늘 보면서 너를 떠올려",
       "artist": "파니니 브런치 (PANINI BRUNCH)",
-      "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "cP1WVoT7X1k"
+      "ytId": "8OBXvPy-Zos"
     },
     {
-      "rank": 48,
-      "title": "You said",
-      "artist": "스트레이 (The Stray)",
-      "songId": "",
+      "rank": 10,
+      "title": "그건 아니잖아",
+      "artist": "더 라임",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "484HfjkbIt4"
-    },
-    {
-      "rank": 49,
-      "title": "멀어지는 내 모습",
-      "artist": "그리드웨이",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "ehzbdvuhHWM"
-    },
-    {
-      "rank": 50,
-      "title": "이별은 그렇게 오더라",
-      "artist": "비비안 (BBAHN)",
-      "songId": "",
-      "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "P67sn-PSuLI"
+      "ytId": "OVBqv6ge_Ls"
     }
   ],
   "JP_HOT": [],
@@ -489,15 +149,13 @@
       "rank": 1,
       "title": "离别开出花",
       "artist": "张妙阳",
-      "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "6DXF1B2TPXE"
+      "ytId": "AZ2c7liYwSg"
     },
     {
       "rank": 2,
       "title": "演员",
       "artist": "薛之谦",
-      "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "XaN3kUz4KSw"
     },
@@ -505,7 +163,6 @@
       "rank": 3,
       "title": "飞鸟和蝉",
       "artist": "任然",
-      "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "Sdh16YlinNE"
     },
@@ -513,23 +170,20 @@
       "rank": 4,
       "title": "可能",
       "artist": "程响",
-      "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "JnngXODMvnY"
     },
     {
       "rank": 5,
       "title": "精卫",
-      "artist": "30年前 của下午",
-      "songId": "",
+      "artist": "30年前",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
-      "ytId": "y6oZTgZ0kT0"
+      "ytId": "A204b5Q4p_U"
     },
     {
       "rank": 6,
       "title": "我会等",
       "artist": "承桓",
-      "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "wukVNyIrtMc"
     }
@@ -542,7 +196,6 @@
       "title": "凉凉",
       "artist": "张碧晨",
       "movie": "Tam Sinh Tam Thế",
-      "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "JEC3NFsuAgM"
     },
@@ -551,7 +204,6 @@
       "title": "左手指月",
       "artist": "萨顶顶",
       "movie": "Hương Mật",
-      "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "AbiMe64zeGM"
     },
@@ -560,7 +212,6 @@
       "title": "不染",
       "artist": "毛不易",
       "movie": "Hương Mật",
-      "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "dDV36GmFP20"
     },
@@ -569,7 +220,6 @@
       "title": "无羁",
       "artist": "肖战",
       "movie": "Trần Tình Lệnh",
-      "songId": "",
       "lyric": "Chưa cập nhật được lyric gốc cho bài viết này.",
       "ytId": "NXOMU2TO7Ys"
     }
