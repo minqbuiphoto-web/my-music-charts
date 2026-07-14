@@ -32,7 +32,7 @@
 <body>
     <div class="container">
         <h1>Trending & OST Audio Stream</h1>
-        <div class="subtitle">Cập nhật tự động • Lời gốc Quốc Gia không dịch</div>
+        <div class="subtitle">Cập nhật tự động liên tục • Lời gốc Quốc Gia không dịch</div>
         
         <div class="section-title">Bảng Xếp Hạng Bài Hát (Top 10)</div>
         <div class="tabs">
@@ -63,15 +63,15 @@
         let musicDatabase = {};
 
         function initSystem() {
-            // Đọc trực tiếp file JSON sạch do robot tạo ra, không sợ bị chặn CORS nữa
-            fetch('./live-data.json?v=' + Date.now())
+            // Thêm mã lệnh phá cache (?t=...) ép trình duyệt luôn lấy dữ liệu mới nhất mà robot vừa cập nhật
+            fetch('./live-data.json?t=' + new Date().getTime())
                 .then(res => res.json())
                 .then(data => {
                     musicDatabase = data;
                     renderSongs(musicDatabase['KR_HOT']);
                 })
                 .catch(() => {
-                    document.getElementById('song-list').innerText = "Hệ thống đang đồng bộ dữ liệu, vui lòng bấm nút Run Workflow bên mục Actions của GitHub.";
+                    document.getElementById('song-list').innerText = "Vui lòng chạy lại Actions trên GitHub để hoàn tất đồng bộ...";
                 });
         }
 
@@ -87,22 +87,42 @@
             songs.forEach(song => {
                 const item = document.createElement('div');
                 item.className = 'song-item';
-                item.onclick = () => playSong(song.title, song.artist, song.lyric);
+                item.onclick = () => playSong(song.title, song.artist);
                 const movieBadge = song.movie ? `<span class="movie-tag">🎬 Phim: ${song.movie}</span>` : '';
                 item.innerHTML = `<div class="rank">${song.rank}</div><div class="song-info"><div class="title">${song.title}</div><div class="artist">${song.artist} ${movieBadge}</div></div>`;
                 listContainer.appendChild(item);
             });
         }
 
-        function playSong(title, artist, lyric) {
+        function playSong(title, artist) {
             document.getElementById('player-title').innerText = `Đang phát Video gốc: ${title} - ${artist}`;
             
-            // Tìm kiếm tự động video gốc chuẩn xác và hiện khung hình to rõ nét
+            // Tìm kiếm tự động video gốc chuẩn xác trên YouTube và phát
             const searchKeyword = encodeURIComponent(title + " " + artist + " official mv");
             document.getElementById('player-youtube').src = `https://www.youtube.com/embed?listType=search&list=${searchKeyword}&autoplay=1`;
 
-            // Hiển thị lyric đã được robot cào sẵn
-            document.getElementById('lyric-box').innerText = lyric || "Bài hát chưa cập nhật lyric gốc.";
+            // Tự động tìm kiếm và nạp Lyric trực tiếp thông qua cổng Proxy mở chống chặn
+            const lyricBox = document.getElementById('lyric-box');
+            lyricBox.innerText = "Đang quét kho dữ liệu lấy lyric chữ gốc...";
+
+            const proxyUrl = "https://api.allorigins.win/get?url=" + encodeURIComponent(`https://music.163.com/api/search/get/web?s=${title} ${artist}&type=1&limit=1`);
+            
+            fetch(proxyUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const searchResult = JSON.parse(data.contents);
+                    if(searchResult.result && searchResult.result.songs) {
+                        const id = searchResult.result.songs[0].id;
+                        fetch("https://api.allorigins.win/get?url=" + encodeURIComponent(`https://music.163.com/api/song/lyric?os=pc&id=${id}&lv=-1`))
+                            .then(r => r.json())
+                            .then(d => {
+                                const lyrData = JSON.parse(d.contents);
+                                if(lyrData.lrc && lyrData.lrc.lyric) {
+                                    lyricBox.innerText = lyrData.lrc.lyric.replace(/\[.*?\]/g, '').trim();
+                                } else { lyricBox.innerText = "Bài hát này hiện chưa cập nhật file lời gốc."; }
+                            });
+                    } else { lyricBox.innerText = "Không tìm thấy lyric gốc."; }
+                }).catch(() => { lyricBox.innerText = "Lỗi kết nối khi tải lời bài hát."; });
         }
 
         initSystem();
