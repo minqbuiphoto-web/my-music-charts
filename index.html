@@ -63,15 +63,15 @@
         let musicDatabase = {};
 
         function initSystem() {
-            // Thêm mã lệnh phá cache (?t=...) ép trình duyệt luôn lấy dữ liệu mới nhất mà robot vừa cập nhật
-            fetch('./live-data.json?t=' + new Date().getTime())
+            // SỬA ĐỔI: Chỉ định đường dẫn link tuyệt đối chính xác của kho chứa GitHub Pages
+            fetch('/my-music-charts/live-data.json?t=' + new Date().getTime())
                 .then(res => res.json())
                 .then(data => {
                     musicDatabase = data;
                     renderSongs(musicDatabase['KR_HOT']);
                 })
                 .catch(() => {
-                    document.getElementById('song-list').innerText = "Vui lòng chạy lại Actions trên GitHub để hoàn tất đồng bộ...";
+                    document.getElementById('song-list').innerText = "Lỗi kết nối dữ liệu. Vui lòng tải lại trang...";
                 });
         }
 
@@ -97,11 +97,9 @@
         function playSong(title, artist) {
             document.getElementById('player-title').innerText = `Đang phát Video gốc: ${title} - ${artist}`;
             
-            // Tìm kiếm tự động video gốc chuẩn xác trên YouTube và phát
             const searchKeyword = encodeURIComponent(title + " " + artist + " official mv");
             document.getElementById('player-youtube').src = `https://www.youtube.com/embed?listType=search&list=${searchKeyword}&autoplay=1`;
 
-            // Tự động tìm kiếm và nạp Lyric trực tiếp thông qua cổng Proxy mở chống chặn
             const lyricBox = document.getElementById('lyric-box');
             lyricBox.innerText = "Đang quét kho dữ liệu lấy lyric chữ gốc...";
 
