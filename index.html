@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Bảng Xếp Hạng Âm Nhạc Trung - Hàn - Nhật</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #121212; color: #fff; margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        h1 { text-align: center; color: #1DB954; }
+        .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .tab-btn { background: #282828; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 20px; font-weight: bold; }
+        .tab-btn.active { background: #1DB954; }
+        .music-layout { display: flex; gap: 20px; }
+        .song-list { flex: 1; background: #181818; padding: 15px; border-radius: 8px; max-height: 500px; overflow-y: auto; }
+        .lyric-box { flex: 1; background: #181818; padding: 15px; border-radius: 8px; border: 1px solid #282828; white-space: pre-line; max-height: 500px; overflow-y: auto; font-size: 16px; line-height: 1.6; }
+        .song-item { display: flex; align-items: center; padding: 10px; border-bottom: 1px solid #282828; cursor: pointer; }
+        .song-item:hover { background: #282828; }
+        .rank { font-size: 18px; font-weight: bold; margin-right: 15px; color: #b3b3b3; width: 30px; }
+        .title { font-weight: bold; }
+        .artist { font-size: 14px; color: #b3b3b3; }
+        #player-container { margin-top: 20px; text-align: center; background: #181818; padding: 15px; border-radius: 8px; }
+        iframe { border: none; width: 100%; height: 80px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Trending & OST Tracker (CN - KR - JP)</h1>
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('KR')">Hàn Quốc (Melon)</button>
+            <button class="tab-btn" onclick="switchTab('JP')">Nhật Bản (Billboard)</button>
+            <button class="tab-btn" onclick="switchTab('CN')">Trung Quốc (QQ/NetEase)</button>
+            <button class="tab-btn" onclick="switchTab('OST')">Phim Hot & OST</button>
+        </div>
+
+        <div class="music-layout">
+            <div class="song-list" id="song-list">Đang tải bảng xếp hạng...</div>
+            <div class="lyric-box" id="lyric-box">Chọn một bài hát để xem lời gốc (Không dịch)...</div>
+        </div>
+
+        <div id="player-container">
+            <h3>Trình phát nhạc</h3>
+            <iframe id="youtube-player" src="" allow="autoplay"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Data giả lập để hệ thống chạy ngay lập tức khi bạn chưa cào dữ liệu
+        const mockData = {
+            KR: [{ rank: 1, title: "Ditto", artist: "NewJeans", ytId: "ZmKRbiJdNgc", songId: "2010771120" }, { rank: 2, title: "Seven", artist: "Jungkook", ytId: "QU9c0053UAU", songId: "2062534123" }],
+            JP: [{ rank: 1, title: "Idol", artist: "YOASOBI", ytId: "ZRtdQ81jCZI", songId: "2036494719" }],
+            CN: [{ rank: 1, title: "演员", artist: "薛之谦", ytId: "XQZzuMvW1TE", songId: "32507038" }],
+            OST: [{ rank: "OST", title: "Double Fantasy (The Idol OST)", artist: "The Weeknd", ytId: "waAlgFq9Xq8", songId: "2038749874" }]
+        };
+
+        function switchTab(country) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            renderSongs(mockData[country]);
+        }
+
+        function renderSongs(songs) {
+            const listContainer = document.getElementById('song-list');
+            listContainer.innerHTML = '';
+            songs.forEach(song => {
+                const item = document.createElement('div');
+                item.className = 'song-item';
+                item.onclick = () => playSong(song.ytId, song.songId);
+                item.innerHTML = `<div class="rank">${song.rank}</div><div><div class="title">${song.title}</div><div class="artist">${song.artist}</div></div>`;
+                listContainer.appendChild(item);
+            });
+        }
+
+        function playSong(ytId, songId) {
+            // Phát nhạc bằng cách đổi link Youtube phát tự động
+            document.getElementById('youtube-player').src = `https://www.youtube.com/embed/${ytId}?autoplay=1&controls=1`;
+            
+            // Gọi API lấy Lyric gốc miễn phí từ NetEase không cần Key
+            document.getElementById('lyric-box').innerText = "Đang tải lyric gốc...";
+            fetch(`https://music.163.com/api/song/lyric?os=pc&id=${songId}&lv=-1`)
+                .then(res => res.json())
+                .then(data => {
+                    if(data.lrc && data.lrc.lyric) {
+                        // Xóa các mốc thời gian [00:12.30] để chỉ hiện chữ gốc sạch sẽ
+                        const cleanLyric = data.lrc.lyric.replace(/\[.*?\]/g, '');
+                        document.getElementById('lyric-box').innerText = cleanLyric;
+                    } else {
+                        document.getElementById('lyric-box').innerText = "Không tìm thấy lyric gốc cho bài này.";
+                    }
+                })
+                .catch(() => { document.getElementById('lyric-box').innerText = "Lỗi kết nối khi tải lyric."; });
+        }
+
+        // Chạy mặc định tab Hàn Quốc khi mở trang
+        renderSongs(mockData['KR']);
+    </script>
+</body>
+</html>
